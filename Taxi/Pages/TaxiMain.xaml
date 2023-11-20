@@ -1,0 +1,40 @@
+﻿<Page x:Class="Taxi.TaxiMain"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:local="clr-namespace:Taxi"
+      mc:Ignorable="d"
+      Height="auto" Width="auto"
+      Loaded="TaxiMain_OnLoaded"
+      Title="Меню таксиста">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <StackPanel Orientation="Horizontal">
+            <TextBlock Style="{StaticResource DefaultTextBlock}" Text="Поиск: " VerticalAlignment="Center" />
+            <TextBox x:Name="SearchTextBox" Style="{StaticResource DefaultTextBox}" VerticalAlignment="Center" TextChanged="SearchTextBox_OnTextChanged" />
+            <StackPanel Orientation="Vertical" VerticalAlignment="Center" Margin="3">
+                <RadioButton x:Name="LeastToMost" Checked="LeastToMost_OnChecked" Margin="2" Content="От новых к старым" />
+                <RadioButton x:Name="MostToLeast" Checked="MostToLeast_OnChecked" Margin="2" Content="От старых к новым" />
+            </StackPanel>
+        </StackPanel>
+        <DataGrid Grid.Row="1" x:Name="RequestDataGrid" Height="250" Margin="10" AutoGenerateColumns="False" IsReadOnly="True">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Номер" Binding="{Binding Id}" />
+                <DataGridTextColumn Header="Откуда" Binding="{Binding Request.AddressFrom}" MinWidth="100"  />
+                <DataGridTextColumn Header="Куда" Binding="{Binding Request.AddressWhere}" MinWidth="100"  />
+                <DataGridTextColumn Header="Клиент" Binding="{Binding Request.Client.Fullname}" MinWidth="100" />
+                <DataGridTextColumn Header="Дата" Binding="{Binding Request.Date}" MinWidth="100" />
+                <DataGridTextColumn Header="Статус" Binding="{Binding Status.Name}"/>
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <Button Grid.Row="2" x:Name="EditDriveButton" Click="EditDriveButton_OnClick" Style="{StaticResource DefaultButton}" Width="200" Content="Изменить статус поездки" />
+    </Grid>
+</Page>
